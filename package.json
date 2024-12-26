@@ -2,13 +2,21 @@
   "name": "hris",
   "version": "0.1.0",
   "private": true,
+  "config": {
+    "migration_db_uri": "postgresql://postgres:postgres@localhost:5432/hris?schema=public"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
+    "docker:up": "docker-compose up -d && npm run pmigrate:up",
+    "pmigrate:up": "MIGRATION_DB_URI=$npm_package_config_migration_db_uri npx prisma migrate dev",
+    "p:studio": "npx prisma studio",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/nextjs-registry": "^1.0.2",
+    "@prisma/client": "^6.1.0",
     "antd": "^5.22.6",
     "next": "15.1.2",
     "react": "^19.0.0",
@@ -22,6 +30,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.1.2",
+    "prisma": "^6.1.0",
     "typescript": "^5"
   }
 }

@@ -1,0 +1,12 @@
+services:
+  hris_app_postgres:
+    container_name: hris_app_postgres_pg_db
+    image: postgres
+    ports:
+      - 5432:5432
+    tmpfs:
+      - /var/lib/postgresql/data
+    environment:
+      - 'POSTGRES_DB=hris'
+      - 'POSTGRES_USER=postgres'
+      - 'POSTGRES_PASSWORD=postgres'
