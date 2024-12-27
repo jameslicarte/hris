@@ -26,10 +26,12 @@ export const editEmployee = async (
       last_name: details.lastName,
     },
   })
+  revalidatePath('/manage')
 }
 
 export const deleteEmployee = async (id: string) => {
   await prisma.employee.delete({
     where: { id },
   })
+  revalidatePath('/manage')
 }
