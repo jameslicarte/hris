@@ -9,31 +9,7 @@ import type { MenuProps } from 'antd'
 import { Breadcrumb, Layout, Menu } from 'antd'
 import { Content, Header } from 'antd/es/layout/layout'
 import Sider from 'antd/es/layout/Sider'
-
-const items1: MenuProps['items'] = [
-  {
-    key: 'logo',
-    label: '<Logo>',
-  },
-]
-
-const items2: MenuProps['items'] = [
-  {
-    key: 'home',
-    label: 'Home',
-    icon: <CalendarOutlined />,
-  },
-  {
-    key: 'manage',
-    label: 'Manage',
-    icon: <UserOutlined />,
-  },
-  {
-    key: 'reports',
-    label: 'Reports',
-    icon: <BarChartOutlined />,
-  },
-]
+import { useRouter } from 'next/navigation'
 
 export default function DashboardLayout({
   children,
@@ -41,6 +17,34 @@ export default function DashboardLayout({
   children: React.ReactNode
 }>) {
   const [collapsed, setCollapsed] = useState(false)
+  const router = useRouter()
+
+  const siderItems: MenuProps['items'] = [
+    {
+      key: 'home',
+      label: 'Home',
+      icon: <CalendarOutlined />,
+      onClick: () => {
+        router.push('/home')
+      },
+    },
+    {
+      key: 'manage',
+      label: 'Manage',
+      icon: <UserOutlined />,
+      onClick: () => {
+        router.push('/manage')
+      },
+    },
+    {
+      key: 'reports',
+      label: 'Reports',
+      icon: <BarChartOutlined />,
+      onClick: () => {
+        router.push('/reports')
+      },
+    },
+  ]
 
   return (
     <Layout>
@@ -49,7 +53,12 @@ export default function DashboardLayout({
           theme="dark"
           mode="horizontal"
           defaultSelectedKeys={['2']}
-          items={items1}
+          items={[
+            {
+              key: 'logo',
+              label: '<Logo>',
+            },
+          ]}
           style={{ flex: 1, minWidth: 0 }}
         />
       </Header>
@@ -66,7 +75,7 @@ export default function DashboardLayout({
             defaultSelectedKeys={['1']}
             defaultOpenKeys={['sub1']}
             style={{ height: '100%', borderRight: 0 }}
-            items={items2}
+            items={siderItems}
           />
         </Sider>
 
