@@ -1,5 +1,5 @@
 import React from 'react'
-import ClientTable from '../home/components/ClientTable'
+import ClientTable from './components/ClientTable'
 import prisma from '../lib/db'
 
 const Manage = async () => {

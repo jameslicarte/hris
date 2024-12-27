@@ -9,7 +9,7 @@ import type { MenuProps } from 'antd'
 import { Breadcrumb, Layout, Menu } from 'antd'
 import { Content, Header } from 'antd/es/layout/layout'
 import Sider from 'antd/es/layout/Sider'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 export default function DashboardLayout({
   children,
@@ -18,6 +18,18 @@ export default function DashboardLayout({
 }>) {
   const [collapsed, setCollapsed] = useState(false)
   const router = useRouter()
+  const pathName = usePathname()
+
+  const getBreadCrumbItems = () => {
+    return pathName
+      .split('/')
+      .filter((item) => item !== '')
+      .map((item) => {
+        // Capitalize first letter
+        item = item.charAt(0).toUpperCase() + item.slice(1)
+        return { title: item }
+      })
+  }
 
   const siderItems: MenuProps['items'] = [
     {
@@ -81,7 +93,7 @@ export default function DashboardLayout({
 
         <Layout style={{ padding: '0 24px 24px' }}>
           <Breadcrumb
-            items={[{ title: 'Home' }, { title: 'List' }, { title: 'App' }]}
+            items={getBreadCrumbItems()}
             style={{ margin: '16px 0' }}
           />
           <Content
