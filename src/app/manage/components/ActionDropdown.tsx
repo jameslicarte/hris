@@ -3,14 +3,21 @@ import { Button, Dropdown } from 'antd'
 import { ItemType } from 'antd/es/menu/interface'
 import React from 'react'
 import { RightCircleOutlined } from '@ant-design/icons'
+import { useRouter } from 'next/navigation'
+import { Prisma } from '@prisma/client'
 
-const ActionDropdown = () => {
+type Props = {
+  employee: Prisma.EmployeeGetPayload<null>
+}
+const ActionDropdown = ({ employee }: Props) => {
+  const router = useRouter()
+
   const items: ItemType[] = [
     {
       key: 'view',
       label: 'View',
       onClick: () => {
-        window.alert('View TBC')
+        router.push(`/manage/${employee.id}`)
       },
     },
     {

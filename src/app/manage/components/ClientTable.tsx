@@ -31,7 +31,7 @@ const ClientTable = ({ employees }: Props) => {
         {
           title: 'actions',
           key: 'actions',
-          render: () => <ActionDropdown />,
+          render: (_, record) => <ActionDropdown employee={record} />,
         },
       ]}
       rowKey="id"

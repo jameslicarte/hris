@@ -10,6 +10,7 @@ import { Breadcrumb, Layout, Menu } from 'antd'
 import { Content, Header } from 'antd/es/layout/layout'
 import Sider from 'antd/es/layout/Sider'
 import { usePathname, useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 export default function DashboardLayout({
   children,
@@ -21,14 +22,23 @@ export default function DashboardLayout({
   const pathName = usePathname()
 
   const getBreadCrumbItems = () => {
-    return pathName
-      .split('/')
-      .filter((item) => item !== '')
-      .map((item) => {
-        // Capitalize first letter
-        item = item.charAt(0).toUpperCase() + item.slice(1)
-        return { title: item }
-      })
+    const path = pathName.split('/').filter((item) => item !== '')
+    return path.map((item) => {
+      // Capitalize first letter
+      const itemWithCapitalizedFirstLetter =
+        item.charAt(0).toUpperCase() + item.slice(1)
+      const isLastItem = path[path.length - 1] === item
+
+      if (isLastItem) {
+        return {
+          title: itemWithCapitalizedFirstLetter,
+        }
+      }
+
+      return {
+        title: <Link href={`/${item}`}>{itemWithCapitalizedFirstLetter}</Link>,
+      }
+    })
   }
 
   const siderItems: MenuProps['items'] = [
