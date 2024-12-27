@@ -21,7 +21,7 @@ const ActionDropdown = () => {
       },
     },
     {
-      key: 'delet',
+      key: 'delete',
       label: 'Delete',
       onClick: () => {
         window.alert('Delete TBC')
