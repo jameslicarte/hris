@@ -2,6 +2,7 @@
 import { Button, Dropdown } from 'antd'
 import { ItemType } from 'antd/es/menu/interface'
 import React from 'react'
+import { RightCircleOutlined } from '@ant-design/icons'
 
 const ActionDropdown = () => {
   const items: ItemType[] = [
@@ -30,7 +31,9 @@ const ActionDropdown = () => {
 
   return (
     <Dropdown menu={{ items }} placement="bottomLeft">
-      <Button>V</Button>
+      <Button type="link">
+        <RightCircleOutlined />
+      </Button>
     </Dropdown>
   )
 }
