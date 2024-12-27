@@ -19,12 +19,12 @@ const ClientTable = ({ employees }: Props) => {
           key: 'id',
         },
         {
-          title: 'First Name',
+          title: 'First name',
           dataIndex: 'first_name',
           key: 'first_name',
         },
         {
-          title: 'Last Name',
+          title: 'Last name',
           dataIndex: 'last_name',
           key: 'last_name',
         },
