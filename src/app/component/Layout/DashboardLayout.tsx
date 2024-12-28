@@ -33,7 +33,7 @@ export default function DashboardLayout({
   >(null)
   const [api, contextHolder] = notification.useNotification()
 
-  const openNotificationWithIcon = useCallback(
+  const openNotification = useCallback(
     ({
       type = 'success',
       title,
@@ -44,9 +44,9 @@ export default function DashboardLayout({
       message: string
     }) => {
       api[type]({
-        message: 'Notification Title',
+        message: title,
         description: message,
-        key: title,
+        key: title.trim(),
       })
     },
     [api]
@@ -54,12 +54,12 @@ export default function DashboardLayout({
 
   useEffect(() => {
     if (showNotification) {
-      openNotificationWithIcon({
+      openNotification({
         title: showNotification.title,
         message: showNotification.message,
       })
     }
-  }, [openNotificationWithIcon, showNotification])
+  }, [openNotification, showNotification])
 
   const getBreadCrumbItems = () => {
     const path = pathName.split('/').filter((item) => item !== '')
