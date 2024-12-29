@@ -46,7 +46,7 @@ export default function DashboardLayout({
       api[type]({
         message: title,
         description: message,
-        key: title.trim(),
+        // key: title.trim(),
       })
     },
     [api]
@@ -58,6 +58,7 @@ export default function DashboardLayout({
         title: showNotification.title,
         message: showNotification.message,
       })
+      notify(null)
     }
   }, [openNotification, showNotification])
 
