@@ -3,10 +3,26 @@
 import { CreateEmployeeFormValues } from '@/app/manage/components/CreateEmployeeModal'
 import prisma from '@/lib/db'
 import { revalidatePath } from 'next/cache'
-import { DeleteEmployeePayloadSchema } from '../schemas/schemas'
+import {
+  CreateEmployeePayloadSchema,
+  DeleteEmployeePayloadSchema,
+  UpdateEmployeePayloadSchema,
+} from '../schemas/schemas'
 
 export const addEmployee = async (details: CreateEmployeeFormValues) => {
-  await prisma.employee.create({
+  const validatedFields = await CreateEmployeePayloadSchema.safeParseAsync(
+    details
+  )
+
+  if (!validatedFields.success) {
+    return {
+      message: 'Invalid payload',
+      record: details,
+      error: validatedFields.error.flatten().fieldErrors,
+    }
+  }
+
+  const employee = await prisma.employee.create({
     data: {
       first_name: details.firstName,
       last_name: details.lastName,
@@ -14,12 +30,28 @@ export const addEmployee = async (details: CreateEmployeeFormValues) => {
   })
 
   revalidatePath('/manage')
+  return {
+    message: 'Employee created',
+    record: employee,
+  }
 }
 
 export const editEmployee = async (
   id: string,
   details: CreateEmployeeFormValues
 ) => {
+  const validatedFields = await UpdateEmployeePayloadSchema.safeParseAsync(
+    details
+  )
+
+  if (!validatedFields.success) {
+    return {
+      message: 'Invalid payload',
+      record: details,
+      error: validatedFields.error.flatten().fieldErrors,
+    }
+  }
+
   await prisma.employee.update({
     where: { id },
     data: {
@@ -28,6 +60,11 @@ export const editEmployee = async (
     },
   })
   revalidatePath('/manage')
+
+  return {
+    message: 'Employee updated',
+    record: { id, ...details },
+  }
 }
 
 export const deleteEmployee = async (employeeId: string) => {
@@ -36,7 +73,7 @@ export const deleteEmployee = async (employeeId: string) => {
   })
   if (!validatedFields.success) {
     return {
-      message: validatedFields.error.message,
+      message: 'Invalid payload',
       record: employeeId,
       error: validatedFields.error.flatten().fieldErrors,
     }

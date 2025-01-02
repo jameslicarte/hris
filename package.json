@@ -12,7 +12,8 @@
     "p:studio": "npx prisma studio",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest"
   },
   "dependencies": {
     "@ant-design/nextjs-registry": "^1.0.2",
@@ -26,12 +27,15 @@
   "devDependencies": {
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@eslint/eslintrc": "^3",
+    "@types/jest": "^29.5.14",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.1.2",
+    "jest": "^29.7.0",
     "prisma": "^6.1.0",
+    "ts-jest": "^29.2.5",
     "typescript": "^5"
   }
 }
