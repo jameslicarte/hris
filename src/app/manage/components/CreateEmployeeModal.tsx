@@ -14,9 +14,16 @@ type Props = {
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
   onSave: (details: CreateEmployeeFormValues) => void
+  isLoading: boolean
 }
 
-const CreateEmployeeModal = ({ form, isOpen, setIsOpen, onSave }: Props) => {
+const CreateEmployeeModal = ({
+  form,
+  isOpen,
+  setIsOpen,
+  onSave,
+  isLoading,
+}: Props) => {
   const handleClose = () => {
     form.resetFields()
     setIsOpen(false)
@@ -30,6 +37,7 @@ const CreateEmployeeModal = ({ form, isOpen, setIsOpen, onSave }: Props) => {
       onCancel={handleClose}
       onOk={() => form.submit()}
       maskClosable={false}
+      loading={isLoading}
     >
       <Form form={form} onFinish={onSave}>
         <FormItem label="First Name" name="first_name">

@@ -12,12 +12,13 @@ import { useNotification } from '@/lib/context'
 const CreateEmployeeButton = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [form] = useForm()
+  const [isLoading, setIsLoading] = useState(false)
   const notification = useNotification()
 
   const handleOnSave = async (values: CreateEmployeeFormValues) => {
-    await addEmployee(values)
-
     try {
+      setIsLoading(true)
+      await addEmployee(values)
       notification.notify({
         title: 'Status',
         message: `Employee ${values.first_name} ${values.last_name} created`,
@@ -31,6 +32,7 @@ const CreateEmployeeButton = () => {
       })
     } finally {
       setIsOpen(false)
+      setIsLoading(false)
     }
   }
 
@@ -48,6 +50,7 @@ const CreateEmployeeButton = () => {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         onSave={handleOnSave}
+        isLoading={isLoading}
       />
     </>
   )
