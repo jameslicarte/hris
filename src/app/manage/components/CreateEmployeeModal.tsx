@@ -5,8 +5,8 @@ import FormItem from 'antd/es/form/FormItem'
 import React from 'react'
 
 export type CreateEmployeeFormValues = {
-  firstName: string
-  lastName: string
+  first_name: string
+  last_name: string
 }
 
 type Props = {
@@ -32,10 +32,10 @@ const CreateEmployeeModal = ({ form, isOpen, setIsOpen, onSave }: Props) => {
       maskClosable={false}
     >
       <Form form={form} onFinish={onSave}>
-        <FormItem label="First Name" name="firstName">
+        <FormItem label="First Name" name="first_name">
           <Input />
         </FormItem>
-        <FormItem label="Last Name" name="lastName">
+        <FormItem label="Last Name" name="last_name">
           <Input />
         </FormItem>
       </Form>

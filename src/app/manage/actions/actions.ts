@@ -1,6 +1,5 @@
 'use server'
 
-import { CreateEmployeeFormValues } from '@/app/manage/components/CreateEmployeeModal'
 import prisma from '@/lib/db'
 import { revalidatePath } from 'next/cache'
 import {
@@ -8,8 +7,9 @@ import {
   DeleteEmployeePayloadSchema,
   UpdateEmployeePayloadSchema,
 } from '../schemas/schemas'
+import { CreateEmployeePayload, UpdateEmployeePayload } from '../schemas/types'
 
-export const addEmployee = async (details: CreateEmployeeFormValues) => {
+export const addEmployee = async (details: CreateEmployeePayload) => {
   const validatedFields = await CreateEmployeePayloadSchema.safeParseAsync(
     details
   )
@@ -23,10 +23,7 @@ export const addEmployee = async (details: CreateEmployeeFormValues) => {
   }
 
   const employee = await prisma.employee.create({
-    data: {
-      first_name: details.firstName,
-      last_name: details.lastName,
-    },
+    data: details,
   })
 
   revalidatePath('/manage')
@@ -38,7 +35,7 @@ export const addEmployee = async (details: CreateEmployeeFormValues) => {
 
 export const editEmployee = async (
   id: string,
-  details: CreateEmployeeFormValues
+  details: UpdateEmployeePayload
 ) => {
   const validatedFields = await UpdateEmployeePayloadSchema.safeParseAsync(
     details
@@ -54,10 +51,7 @@ export const editEmployee = async (
 
   await prisma.employee.update({
     where: { id },
-    data: {
-      first_name: details.firstName,
-      last_name: details.lastName,
-    },
+    data: details,
   })
   revalidatePath('/manage')
 

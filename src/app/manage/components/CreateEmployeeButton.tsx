@@ -16,12 +16,22 @@ const CreateEmployeeButton = () => {
 
   const handleOnSave = async (values: CreateEmployeeFormValues) => {
     await addEmployee(values)
-    setIsOpen(false)
-    form.resetFields()
-    notification.notify({
-      title: 'Status',
-      message: `Employee ${values.firstName} ${values.lastName} created`,
-    })
+
+    try {
+      notification.notify({
+        title: 'Status',
+        message: `Employee ${values.first_name} ${values.last_name} created`,
+      })
+      form.resetFields()
+    } catch (error) {
+      console.error(error)
+      notification.notify({
+        title: 'Error',
+        message: `Failed to create employee`,
+      })
+    } finally {
+      setIsOpen(false)
+    }
   }
 
   return (

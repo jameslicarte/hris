@@ -20,12 +20,21 @@ const ActionDropdown = ({ employee }: Props) => {
 
   const handleDelete = useCallback(async () => {
     setIsLoading(true)
-    await deleteEmployee(employee.id)
-    setIsLoading(false)
-    notification.notify({
-      title: 'Status',
-      message: `Employee ${employee.first_name} ${employee.last_name} deleted`,
-    })
+    try {
+      await deleteEmployee(employee.id)
+      notification.notify({
+        title: 'Status',
+        message: `Employee ${employee.first_name} ${employee.last_name} deleted`,
+      })
+    } catch (error) {
+      console.error(error)
+      notification.notify({
+        title: 'Error',
+        message: `Failed to delete employee`,
+      })
+    } finally {
+      setIsLoading(false)
+    }
   }, [employee.first_name, employee.id, employee.last_name, notification])
 
   const items: ItemType[] = [
@@ -57,7 +66,11 @@ const ActionDropdown = ({ employee }: Props) => {
           <RightCircleOutlined />
         </Button>
       </Dropdown>
-      <EditUserModal isOpen={isEditModalOpen} setIsOpen={setIsEditModalOpen} />
+      <EditUserModal
+        isOpen={isEditModalOpen}
+        setIsOpen={setIsEditModalOpen}
+        employee={employee}
+      />
     </>
   )
 }

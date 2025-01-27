@@ -11,13 +11,13 @@ const nonEmptyString = z.string().refine((val) => val.trim() !== '', {
 })
 
 export const CreateEmployeePayloadSchema = z.object({
-  firstName: nonNumberString,
-  lastName: nonNumberString,
+  first_name: nonNumberString,
+  last_name: nonNumberString,
 })
 
 export const UpdateEmployeePayloadSchema = z.object({
-  firstName: nonNumberString,
-  lastName: nonNumberString,
+  first_name: nonNumberString,
+  last_name: nonNumberString,
 })
 
 export const DeleteEmployeePayloadSchema = z.object({
