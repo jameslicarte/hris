@@ -1,5 +1,5 @@
 'use client'
-import { Button, Dropdown } from 'antd'
+import { Button, Dropdown, Modal } from 'antd'
 import { ItemType } from 'antd/es/menu/interface'
 import React, { useCallback, useState } from 'react'
 import { RightCircleOutlined } from '@ant-design/icons'
@@ -17,6 +17,7 @@ const ActionDropdown = ({ employee }: Props) => {
   const [isLoading, setIsLoading] = useState(false)
   const notification = useNotification()
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [deleteConfirmModal, deleteConfirmModalContextHolder] = Modal.useModal()
 
   const handleDelete = useCallback(async () => {
     setIsLoading(true)
@@ -37,6 +38,13 @@ const ActionDropdown = ({ employee }: Props) => {
     }
   }, [employee.first_name, employee.id, employee.last_name, notification])
 
+  const handleDeleteButtonClick = () =>
+    deleteConfirmModal.confirm({
+      title: 'Delete employee',
+      content: `Are you sure you want to delete ${employee.first_name} ${employee.last_name}?`,
+      onOk: handleDelete,
+    })
+
   const items: ItemType[] = [
     {
       key: 'view',
@@ -55,7 +63,7 @@ const ActionDropdown = ({ employee }: Props) => {
     {
       key: 'delete',
       label: 'Delete',
-      onClick: handleDelete,
+      onClick: handleDeleteButtonClick,
     },
   ]
 
@@ -71,6 +79,7 @@ const ActionDropdown = ({ employee }: Props) => {
         setIsOpen={setIsEditModalOpen}
         employee={employee}
       />
+      {deleteConfirmModalContextHolder}
     </>
   )
 }
