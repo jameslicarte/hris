@@ -1,10 +1,5 @@
-import { Button } from 'antd'
-import styles from './page.module.css'
+import { redirect } from 'next/navigation'
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <Button>Hello world</Button>
-    </div>
-  )
+  return redirect('/home')
 }
