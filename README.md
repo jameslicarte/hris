@@ -16,6 +16,12 @@
 
 ### Running the app:
 
+Install dependencies
+```
+npm i
+```
+
+
 ```bash
 npm run dev
 # or
