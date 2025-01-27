@@ -14,8 +14,14 @@
 - Create your own `.env` file
 - Copy the content of `env-sample` to your `.env` file
 
-### Running the app:
 
+### Install dependencies
+```
+npm i
+```
+
+
+### Running the app:
 ```bash
 npm run dev
 # or
