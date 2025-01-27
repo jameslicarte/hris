@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { Prisma } from '@prisma/client'
 import { deleteEmployee } from '../actions/actions'
 import { useNotification } from '@/lib/context'
+import EditUserModal from './EditUserModal'
 
 type Props = {
   employee: Prisma.EmployeeGetPayload<null>
@@ -15,6 +16,7 @@ const ActionDropdown = ({ employee }: Props) => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const notification = useNotification()
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
 
   const handleDelete = useCallback(async () => {
     setIsLoading(true)
@@ -38,7 +40,7 @@ const ActionDropdown = ({ employee }: Props) => {
       key: 'edit',
       label: 'Edit',
       onClick: () => {
-        window.alert('Edit TBC')
+        setIsEditModalOpen(true)
       },
     },
     {
@@ -49,11 +51,14 @@ const ActionDropdown = ({ employee }: Props) => {
   ]
 
   return (
-    <Dropdown menu={{ items }} placement="bottomLeft">
-      <Button type="link" loading={isLoading}>
-        <RightCircleOutlined />
-      </Button>
-    </Dropdown>
+    <>
+      <Dropdown menu={{ items }} placement="bottomLeft">
+        <Button type="link" loading={isLoading}>
+          <RightCircleOutlined />
+        </Button>
+      </Dropdown>
+      <EditUserModal isOpen={isEditModalOpen} setIsOpen={setIsEditModalOpen} />
+    </>
   )
 }
 
