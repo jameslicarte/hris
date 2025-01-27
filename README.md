@@ -9,11 +9,12 @@
 
 ## Getting Started
 
-# Set-up local env variables
+### Set-up local env variables
 - Create your own `.env` file
 - Copy the content of `env-sample` to your `.env` file
 
-First, run the development server:
+
+### Running the app:
 
 ```bash
 npm run dev
