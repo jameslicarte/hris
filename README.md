@@ -1,6 +1,6 @@
 # hr-system
 
-## Features
+## Features to develop
 
 - Authentication
 - User management
